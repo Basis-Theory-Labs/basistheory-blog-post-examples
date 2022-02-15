@@ -4,7 +4,6 @@ using BasisTheory.LuceneSearchingExample.Extensions.Expressions;
 using BasisTheory.LuceneSearchingExample.entities;
 using BasisTheory.LuceneSearchingExample.Models.Requests;
 using Lucene.Net.Analysis.Core;
-using Lucene.Net.Analysis.Standard;
 using Lucene.Net.QueryParsers.Classic;
 using Lucene.Net.Search;
 using Lucene.Net.Util;
