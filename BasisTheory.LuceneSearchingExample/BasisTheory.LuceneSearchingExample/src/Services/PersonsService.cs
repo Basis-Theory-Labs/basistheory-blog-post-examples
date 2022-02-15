@@ -14,7 +14,7 @@ namespace BasisTheory.LuceneSearchingExample.Services;
 
 public interface IPersonsService
 {
-    public IQueryable<Person> SearchPersons(SearchPersonsRequest request);
+    public Task<List<Person>> SearchPersons(SearchPersonsRequest request, CancellationToken cancellationToken);
 }
 
 public class PersonsService : IPersonsService
@@ -26,9 +26,10 @@ public class PersonsService : IPersonsService
         _societyDbContext = societyDbContext;
     }
 
-    public IQueryable<Person> SearchPersons(SearchPersonsRequest request)
+    public async Task<List<Person>> SearchPersons(SearchPersonsRequest request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.Query)) return _societyDbContext.Persons.AsNoTracking();
+        if (string.IsNullOrWhiteSpace(request.Query))
+            return await _societyDbContext.Persons.AsNoTracking().ToListAsync(cancellationToken);
 
         using var analyzer = new WhitespaceAnalyzer(LuceneVersion.LUCENE_48);
 
@@ -36,7 +37,7 @@ public class PersonsService : IPersonsService
 
         var searchFilter = GetTerms(parser.Parse(request.Query));
 
-        return _societyDbContext.Persons.AsNoTracking().Where(searchFilter);
+        return await _societyDbContext.Persons.AsNoTracking().Where(searchFilter).ToListAsync(cancellationToken);
     }
 
     private Expression<Func<Person, bool>> GetTerms(Query query) =>

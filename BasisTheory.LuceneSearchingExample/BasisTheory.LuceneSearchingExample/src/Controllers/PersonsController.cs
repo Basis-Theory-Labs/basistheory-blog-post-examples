@@ -22,11 +22,14 @@ public class PersonsController : ControllerBase
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Search([FromBody] SearchPersonsRequest request)
+    public async Task<IActionResult> Search(
+        [FromBody]
+        SearchPersonsRequest request,
+        CancellationToken cancellationToken = default)
     {
         try
         {
-            return Ok(_personsService.SearchPersons(request));
+            return Ok(await _personsService.SearchPersons(request, cancellationToken));
         }
         catch (Exception e) when (e is InvalidOperationException or ParseException)
         {
