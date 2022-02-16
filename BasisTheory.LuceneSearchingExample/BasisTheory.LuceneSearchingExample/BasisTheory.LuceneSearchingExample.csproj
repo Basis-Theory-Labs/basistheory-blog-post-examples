@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="src\.DS_Store" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="LanguageExt.Core" Version="4.0.3" />
       <PackageReference Include="Lucene.Net" Version="4.8.0-beta00015" />
       <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00015" />

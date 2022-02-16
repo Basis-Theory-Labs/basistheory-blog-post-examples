@@ -19,9 +19,6 @@ public class PersonsController : ControllerBase
     }
 
     [HttpPost]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Search(
         [FromBody]
         SearchPersonsRequest request,
